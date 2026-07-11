@@ -158,6 +158,16 @@ Core principles:
 
 ---
 
+# 💰 Business Potential & Pricing
+
+Heckle targets a massive, underserved market: indie hackers, early-stage founders, product managers writing internal pitches, and students entering startup competitions. Anyone who has spent 20 minutes crafting a Product Hunt launch only to get 3 upvotes is our target customer.
+
+### Pricing Model
+- **Free Tier**: 3 reviews/month, 4 AI personas. (Perfect for students and casual hackers).
+- **Pro Tier ($9/month)**: Unlimited reviews, all 6 mobile personas, persistent pitch history, and shareable report links for team collaboration.
+
+---
+
 # 🤝 Contributing
 
 Contributions are welcome! If you'd like to improve Heckle, feel free to:

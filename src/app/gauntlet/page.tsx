@@ -6,6 +6,7 @@ import { ArrowLeft, Mic, CheckCircle2, AlertTriangle, ShieldAlert, Newspaper, Se
 import { PERSONAS } from "@/lib/personas";
 import { play, bind } from "cuelume";
 import { playPaperSlap } from "@/lib/audio";
+import LZString from "lz-string";
 
 const ICONS = {
   ph_early_adopter: ShieldAlert,
@@ -63,6 +64,9 @@ export default function GauntletPage() {
   const [assetType, setAssetType] = useState(ASSET_TYPES[0]);
   const [audience, setAudience] = useState(AUDIENCES[0]);
   const [previousScore, setPreviousScore] = useState<number | null>(null);
+  
+  type PitchHistoryEntry = { id: string; pitch: string; assetType: string; audience: string; score: number; date: number };
+  const [pitchHistory, setPitchHistory] = useState<PitchHistoryEntry[]>([]);
 
   type LoadingPhase = "idle" | "personas" | "report" | "complete" | "error";
   const [loadingPhase, setLoadingPhase] = useState<LoadingPhase>("idle");
@@ -93,6 +97,13 @@ export default function GauntletPage() {
       document.documentElement.style.setProperty('--y', `${e.clientY}px`);
     };
     window.addEventListener('mousemove', handleMouseMove);
+
+    // Load history
+    const stored = localStorage.getItem("heckleHistory");
+    if (stored) {
+      try { setPitchHistory(JSON.parse(stored)); } catch(e) {}
+    }
+
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
@@ -249,6 +260,23 @@ export default function GauntletPage() {
       setResults({ personaResponses: responses, report: reportData });
       setLoadingPhase("complete");
       
+      // Save history
+      const score = getOverallScore({ report: reportData });
+      const newHistoryEntry: PitchHistoryEntry = {
+        id: Math.random().toString(36).substr(2, 9),
+        pitch: pitchToRun,
+        assetType,
+        audience,
+        score,
+        date: Date.now()
+      };
+      
+      setPitchHistory(prev => {
+        const next = [newHistoryEntry, ...prev].slice(0, 5);
+        localStorage.setItem("heckleHistory", JSON.stringify(next));
+        return next;
+      });
+      
       setTimeout(() => play("bloom"), 300);
     } catch (err: any) {
       setLoadingPhase("error");
@@ -276,6 +304,20 @@ export default function GauntletPage() {
     setPitch("");
     setPreviousScore(null);
     setTimeline([]);
+  };
+
+  const trySamplePitch = () => {
+    setPitch("TodoApp is a todo list. You can add tasks. You can delete tasks. It helps you be productive. Download now for $4.99/mo.");
+    setAssetType("App Store Description");
+    setAudience("Productivity User");
+  };
+
+  const handleShare = () => {
+    if (!results) return;
+    const data = LZString.compressToEncodedURIComponent(JSON.stringify(results));
+    const url = `${window.location.origin}/report?data=${data}`;
+    navigator.clipboard.writeText(url);
+    alert("Report link copied to clipboard!");
   };
 
   return (
@@ -330,12 +372,20 @@ export default function GauntletPage() {
             </p>
 
             <div className="w-full mb-[40px] flex flex-col gap-6">
-              <textarea
-                value={pitch}
-                onChange={(e) => setPitch(e.target.value)}
-                placeholder={placeholderText}
-                className="w-full h-48 p-4 rounded-xl border border-[var(--line)] bg-[var(--bg)] text-[var(--ink)] focus:outline-none focus:border-[var(--accent)] resize-none transition-colors shadow-sm"
-              />
+              <div className="flex flex-col gap-2">
+                <textarea
+                  value={pitch}
+                  onChange={(e) => setPitch(e.target.value)}
+                  placeholder={placeholderText}
+                  className="w-full h-48 p-4 rounded-xl border border-[var(--line)] bg-[var(--bg)] text-[var(--ink)] focus:outline-none focus:border-[var(--accent)] resize-none transition-colors shadow-sm"
+                />
+                <button 
+                  onClick={trySamplePitch}
+                  className="self-end text-xs font-semibold text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
+                >
+                  Try a Sample Pitch
+                </button>
+              </div>
 
               <div className="flex flex-col gap-3 mt-2">
                 <label className="text-[var(--muted)] text-sm font-semibold uppercase tracking-wider">
@@ -412,6 +462,28 @@ export default function GauntletPage() {
             >
               Run the Gauntlet
             </button>
+
+            {pitchHistory.length > 0 && (
+              <div className="w-full max-w-[600px] mt-16 flex flex-col gap-4 animate-in fade-in duration-700">
+                <h3 className="font-semibold text-sm uppercase tracking-widest text-[var(--muted)] border-l-2 border-[var(--line)] pl-3">Previous Runs</h3>
+                <div className="flex flex-col gap-3">
+                  {pitchHistory.map((hist, i) => (
+                    <div key={hist.id} className="p-4 rounded-xl border border-[var(--line)] bg-white/50 flex flex-col gap-2 relative overflow-hidden group hover:bg-white transition-colors cursor-pointer" onClick={() => { setPitch(hist.pitch); setAssetType(hist.assetType); setAudience(hist.audience); }}>
+                      <div className="flex justify-between items-start">
+                        <div className="flex flex-col">
+                          <span className="text-sm font-semibold text-[var(--ink)]">{hist.assetType}</span>
+                          <span className="text-xs text-[var(--muted)] truncate max-w-[200px] sm:max-w-[300px]">{hist.pitch}</span>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <span className="text-xs font-bold uppercase tracking-wider text-[var(--muted)] mb-1">Score</span>
+                          <span className="text-xl font-display text-[var(--accent)]">{hist.score}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -774,12 +846,20 @@ export default function GauntletPage() {
                   </div>
 
                   <div className="flex flex-col items-center mt-6 pt-8 border-t border-[var(--line)]">
-                    <button
-                      onClick={handleRewriteAndRetry}
-                      className="flex items-center gap-2 rounded-full px-[36px] py-[18px] bg-[var(--ink)] text-white font-bold text-[1.1rem] rotate-2 hover:rotate-0 hover:shadow-xl hover:shadow-[var(--ink)]/20 transition-all duration-300 ease-out relative z-10"
-                    >
-                      <RefreshCw className="w-5 h-5" /> Run Again with AI Rewrite
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-4 w-full sm:justify-center">
+                      <button
+                        onClick={handleRewriteAndRetry}
+                        className="flex items-center justify-center gap-2 rounded-full px-[32px] py-[16px] bg-[var(--ink)] text-white font-bold text-[1.05rem] rotate-2 hover:rotate-0 hover:shadow-xl hover:shadow-[var(--ink)]/20 transition-all duration-300 ease-out relative z-10 w-full sm:w-auto"
+                      >
+                        <RefreshCw className="w-5 h-5" /> Run Again with Rewrite
+                      </button>
+                      <button
+                        onClick={handleShare}
+                        className="flex items-center justify-center gap-2 rounded-full px-[32px] py-[16px] bg-white border-2 border-[var(--line)] text-[var(--ink)] font-bold text-[1.05rem] -rotate-1 hover:rotate-0 hover:border-[var(--muted)] transition-all duration-300 ease-out relative z-10 w-full sm:w-auto"
+                      >
+                        Share Report Link
+                      </button>
+                    </div>
                     <span className="text-xs text-[var(--muted)] mt-4 text-center max-w-sm">
                       This will instantly re-run the gauntlet using the AI's full rewritten pitch.
                     </span>
