@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Mic, MessageSquare, Rocket, Flame, ArrowRight, ShieldAlert, Newspaper, Search, Briefcase, CheckCircle2, Terminal, Scale, AlertTriangle } from "lucide-react";
+import { Mic, MessageSquare, Rocket, Flame, ArrowRight, ShieldAlert, Newspaper, Search, Briefcase, CheckCircle2, Terminal, Scale, AlertTriangle, Zap } from "lucide-react";
 import { bind } from "cuelume";
 
 export default function LandingPage() {
@@ -57,7 +57,7 @@ export default function LandingPage() {
         <div className="w-full max-w-[640px] flex flex-col items-center relative z-10">
           <div className="flex flex-row items-center justify-center gap-[8px] mb-[28px] text-[0.95rem] text-[var(--muted)] tracking-[0.01em]" data-aos="fade-up">
             <img src="/logo.png" alt="Heckle Logo" className="w-5 h-5 object-contain drop-shadow-sm" />
-            <span>Practice pitches. Real reactions.</span>
+            <span>Practice launches. Real reactions.</span>
           </div>
 
           <h1 className="font-display text-[clamp(2.25rem,5vw,3.25rem)] leading-[1.18] tracking-[-0.015em] text-[var(--ink)] text-center mb-[44px]">
@@ -71,7 +71,7 @@ export default function LandingPage() {
                 <span style={{ background: "var(--chip-b)", transform: "rotate(-3deg)" }}>L</span>
                 <span style={{ background: "var(--chip-c)", transform: "rotate(2deg)" }}>E</span>
               </span>
-              pitch meets
+              launch meets
             </div>
             <div data-aos="fade-up" data-aos-delay="200" className="flex items-center justify-center gap-2">
               <span className="icon-chip">
@@ -109,9 +109,9 @@ export default function LandingPage() {
         </h2>
         
         <div className="flex flex-col items-center font-mono text-[var(--ink)]" data-aos="fade-up" data-aos-delay="100">
-          <span className="text-xs font-bold text-[var(--muted)] mb-4">YOUR PITCH</span>
+          <span className="text-xs font-bold text-[var(--muted)] mb-4">YOUR ASSET</span>
           <div className="border border-[var(--line)] rounded-md px-6 py-4 bg-white shadow-sm mb-4">
-            "We built..."
+            "The first app that..."
           </div>
           <div className="h-12 border-l-2 border-dashed border-[var(--line)] mb-4"></div>
           <span className="text-xs font-bold text-[var(--muted)] mb-4 lowercase italic">passes through</span>
@@ -120,10 +120,10 @@ export default function LandingPage() {
           <div className="border border-[var(--line)] rounded-xl p-6 bg-[var(--accent-soft)] flex flex-col items-center shadow-sm w-64 mb-4">
             <span className="font-display text-xl mb-4">THE GAUNTLET</span>
             <ul className="flex flex-col gap-2 w-full text-sm font-sans font-semibold">
-              <li className="flex items-center gap-2"><ShieldAlert className="w-4 h-4 text-[var(--accent)]"/> PH</li>
-              <li className="flex items-center gap-2"><Newspaper className="w-4 h-4 text-[var(--accent)]"/> Journalist</li>
-              <li className="flex items-center gap-2"><Search className="w-4 h-4 text-[var(--accent)]"/> Reply Guy</li>
-              <li className="flex items-center gap-2"><Briefcase className="w-4 h-4 text-[var(--accent)]"/> Investor</li>
+              <li className="flex items-center gap-2"><ShieldAlert className="w-4 h-4 text-[var(--accent)]"/> Early Adopter</li>
+              <li className="flex items-center gap-2"><Newspaper className="w-4 h-4 text-[var(--accent)]"/> Tech Journalist</li>
+              <li className="flex items-center gap-2"><Search className="w-4 h-4 text-[var(--accent)]"/> App Store Browser</li>
+              <li className="flex items-center gap-2"><Zap className="w-4 h-4 text-[var(--accent)]"/> First-Time User</li>
             </ul>
           </div>
           
@@ -151,30 +151,30 @@ export default function LandingPage() {
           <div className="p-4 border-b border-[var(--line)] flex items-center justify-between bg-white">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[var(--accent)]" />
-              <span className="font-semibold text-sm text-[var(--ink)]">PH Commenter</span>
+              <span className="font-semibold text-sm text-[var(--ink)]">Early Adopter</span>
             </div>
             <span className="text-xs font-serif italic text-[var(--muted)]">"This already exists."</span>
           </div>
           <div className="p-4 border-b border-[var(--line)] flex items-center justify-between bg-white">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[var(--accent)]" />
-              <span className="font-semibold text-sm text-[var(--ink)]">Journalist</span>
+              <span className="font-semibold text-sm text-[var(--ink)]">Tech Journalist</span>
             </div>
             <span className="text-xs font-serif italic text-[var(--muted)]">"Where's the story?"</span>
           </div>
           <div className="p-4 border-b border-[var(--line)] flex items-center justify-between bg-white">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[var(--accent)]" />
-              <span className="font-semibold text-sm text-[var(--ink)]">Investor</span>
+              <span className="font-semibold text-sm text-[var(--ink)]">App Store Browser</span>
             </div>
-            <span className="text-xs font-serif italic text-[var(--muted)]">"Show traction."</span>
+            <span className="text-xs font-serif italic text-[var(--muted)]">"Is this a subscription trap?"</span>
           </div>
           <div className="p-4 flex items-center justify-between bg-white">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-[var(--accent)]" />
-              <span className="font-semibold text-sm text-[var(--ink)]">Reply Guy</span>
+              <span className="font-semibold text-sm text-[var(--ink)]">First-Time User</span>
             </div>
-            <span className="text-xs font-serif italic text-[var(--muted)]">"I stopped reading."</span>
+            <span className="text-xs font-serif italic text-[var(--muted)]">"How do I actually use this?"</span>
           </div>
         </div>
       </section>
@@ -211,32 +211,32 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
           {[
             {
-              name: "PH COMMENTER",
+              name: "EARLY ADOPTER",
               job: "Professional skeptic",
               launches: "12,000+",
-              fav: '"This is just X."',
+              fav: '"This is just X but worse."',
               reject: "92%"
             },
             {
-              name: "JOURNALIST",
+              name: "TECH JOURNALIST",
               job: "Inboxes at 100%",
               launches: "5,000+",
               fav: '"Not a story."',
               reject: "98%"
             },
             {
-              name: "INVESTOR",
-              job: "Traction hunter",
-              launches: "8,000+",
-              fav: '"Come back later."',
-              reject: "99%"
+              name: "APP STORE BROWSER",
+              job: "Searching for solutions",
+              launches: "N/A",
+              fav: '"Looks fake."',
+              reject: "85%"
             },
             {
-              name: "REPLY GUY",
-              job: "Scrolling endlessly",
-              launches: "20,000+",
-              fav: '"I stopped reading."',
-              reject: "95%"
+              name: "FIRST-TIME USER",
+              job: "Impatient downloader",
+              launches: "N/A",
+              fav: '"How do I use this?"',
+              reject: "70%"
             }
           ].map((d, idx) => (
             <div key={d.name} className="border-t-4 border-[var(--ink)] bg-[var(--bg)] border border-x-[var(--line)] border-b-[var(--line)] p-6 font-mono text-sm" data-aos="fade-up" data-aos-delay={idx * 100}>
@@ -295,11 +295,11 @@ export default function LandingPage() {
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4" data-aos="fade-up" data-aos-delay="400">
             <div className="bg-black/20 rounded-xl p-4 flex items-center justify-between">
-              <span className="font-semibold text-sm">Reply Guy</span>
-              <span className="italic text-sm opacity-80">"Okay, I'd click."</span>
+              <span className="font-semibold text-sm">App Store Browser</span>
+              <span className="italic text-sm opacity-80">"I'd download this."</span>
             </div>
             <div className="bg-black/20 rounded-xl p-4 flex items-center justify-between">
-              <span className="font-semibold text-sm">Investor</span>
+              <span className="font-semibold text-sm">Early Adopter</span>
               <span className="italic text-sm opacity-80">"Much clearer."</span>
             </div>
           </div>
@@ -354,16 +354,16 @@ export default function LandingPage() {
           <div className="w-full text-left font-mono text-sm space-y-6">
             <div>
               <span className="text-[var(--muted)] font-bold uppercase tracking-wider mb-2 block">Evidence Submitted</span>
-              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> Pitch</div>
+              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> Launch Asset</div>
             </div>
             
             <div>
               <span className="text-[var(--muted)] font-bold uppercase tracking-wider mb-2 block">Witnesses</span>
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> Journalist</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> Investor</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> PH</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> Reply Guy</div>
+                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> Early Adopter</div>
+                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> App Store Browser</div>
+                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> First-Time User</div>
               </div>
             </div>
           </div>
@@ -479,7 +479,7 @@ export default function LandingPage() {
       ------------------------------ */}
       <footer className="w-full flex flex-col items-center justify-center px-6 py-32 bg-[var(--ink)] text-white text-center">
         <h2 className="font-display text-4xl md:text-5xl mb-6 max-w-[600px] leading-tight" data-aos="fade-up">
-          One day your pitch will meet the internet.
+          One day your launch will meet the internet.
         </h2>
         <p className="text-xl text-white/60 mb-12 max-w-[500px]" data-aos="fade-up" data-aos-delay="100">
           Better to get roasted by four fake critics than four thousand real ones.
