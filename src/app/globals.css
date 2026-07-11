@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #F5F1E6;
+  --ink: #12352A;
+  --accent: #1B8F6F;
+  --accent-dark: #146B54;
+  --accent-soft: #E4EDE4;
+  --muted: #A39D87;
+  --line: #E2DCC9;
+  --chip-a: #12352A;
+  --chip-b: #1B8F6F;
+  --chip-c: #C9622E;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-soft: var(--accent-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-chip-a: var(--chip-a);
+  --color-chip-b: var(--chip-b);
+  --color-chip-c: var(--chip-c);
+}
+
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Supreme', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-image: 
+      linear-gradient(to right, rgba(18,53,42,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(18,53,42,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+.font-display {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+}
+
+.wordmark {
+  display: inline-flex;
+  gap: 2px;
+  vertical-align: middle;
+  margin: 0 6px;
+  animation: float 4s ease-in-out infinite;
+}
+.wordmark span {
+  display: inline-block;
+  color: #FFFFFF;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(18, 53, 42, 0.2);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wordmark { animation: none; }
+}
+
+.icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.1em;
+  width: 1.1em;
+  vertical-align: middle;
+  margin: 0 4px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  transform: rotate(-3deg);
+}
+.icon-chip svg {
+  height: 60%;
+  width: 60%;
+  stroke: var(--ink);
+}
+@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } } .animate-marquee { animation: marquee 30s linear infinite; } .animate-marquee:hover { animation-play-state: paused; }  
