@@ -114,7 +114,7 @@ Promotion Coverage Map
 
 ### AI
 - OpenRouter
-- `tencent/hy3:free` (Reasoning-enabled LLM)
+- `poolside/laguna-m.1:free` (Reasoning-enabled LLM)
 
 ### Design
 - Custom Editorial Design System
