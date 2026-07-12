@@ -61,8 +61,11 @@ Return ONLY valid JSON exactly matching this structure, with no markdown fences 
       throw new Error(`Invalid response from OpenRouter API`);
     }
 
-    const clean = data.choices[0].message.content.replace(/```json|```/g, "").trim();
-    return NextResponse.json(JSON.parse(clean));
+    let clean = data.choices[0].message.content.replace(/```json|```/g, "").trim();
+    clean = clean.replace(/<thought>[\s\S]*?<\/thought>/gi, "").trim();
+    const jsonMatch = clean.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error("No JSON found in response");
+    return NextResponse.json(JSON.parse(jsonMatch[0]));
 
   } catch (error: any) {
     console.error("Promo Kit generation error:", error);

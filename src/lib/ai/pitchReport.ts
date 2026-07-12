@@ -51,8 +51,11 @@ export async function generatePitchReport(pitch: string, personaResponses: { per
     if (!data.choices || !data.choices[0] || !data.choices[0].message) {
       throw new Error(`Invalid response from OpenRouter API for pitch report`);
     }
-    const clean = data.choices[0].message.content.replace(/```json|```/g, "").trim();
-    return JSON.parse(clean);
+    let clean = data.choices[0].message.content.replace(/```json|```/g, "").trim();
+    clean = clean.replace(/<thought>[\s\S]*?<\/thought>/gi, "").trim();
+    const jsonMatch = clean.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error("No JSON found in response");
+    return JSON.parse(jsonMatch[0]);
   } catch (error: any) {
     throw new Error(`OpenRouter API failed for pitch report: ${error.message}`);
   }

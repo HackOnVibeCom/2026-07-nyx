@@ -53,10 +53,13 @@ export async function getPersonaResponse(personaKey: keyof typeof PERSONAS, pitc
     }
     
     let clean = data.choices[0].message.content.replace(/```json|```/g, "").trim();
-    // basic sanitization for invalid JSON
+    // Remove reasoning tags
+    clean = clean.replace(/<thought>[\s\S]*?<\/thought>/gi, "").trim();
+    
     let parsed;
     try {
-      parsed = JSON.parse(clean);
+      const jsonMatch = clean.match(/\{[\s\S]*\}/);
+      parsed = JSON.parse(jsonMatch ? jsonMatch[0] : clean);
     } catch (e) {
       parsed = { response: clean, wouldShare: "Maybe" };
     }
