@@ -9,7 +9,7 @@ export async function generatePitchReport(pitch: string, personaResponses: { per
         res = await axios.post(
           "https://openrouter.ai/api/v1/chat/completions",
           {
-            model: "google/gemma-4-31b-it:free",
+            model: "poolside/laguna-m.1:free",
             messages: [
               {
                 role: "system",
