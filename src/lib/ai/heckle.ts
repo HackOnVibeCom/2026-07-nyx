@@ -12,7 +12,7 @@ export async function getPersonaResponse(personaKey: keyof typeof PERSONAS, pitc
         res = await axios.post(
           "https://openrouter.ai/api/v1/chat/completions",
           {
-            model: "poolside/laguna-m.1:free",
+            model: "google/gemma-2-9b-it:free",
             messages: [
               {
                 role: "system",

@@ -27,7 +27,7 @@ Return ONLY valid JSON exactly matching this structure, with no markdown fences 
         res = await axios.post(
           "https://openrouter.ai/api/v1/chat/completions",
           {
-            model: "poolside/laguna-m.1:free",
+            model: "google/gemma-2-9b-it:free",
             messages: [
               { role: "system", content: systemPrompt },
               { role: "user", content: `Asset Type: ${assetType}\nAudience: ${audience}\n\nCore Pitch to adapt:\n${pitch}` }
